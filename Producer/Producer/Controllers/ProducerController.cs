@@ -47,6 +47,12 @@ namespace Producer.Controllers
             thr6.Start();
         }
 
+        [HttpPost]
+        public void Consume(DrinkModel model)
+        {
+            Console.WriteLine($"Received consumed drink: {model.Drink}");
+        }
+
         private async Task SendHttpRequestAsync(int nr, string[] drinks, CancellationToken ct)
         {
             var rnd = new Random();
