@@ -12,7 +12,7 @@ namespace Producer.Controllers
     public class ProducerController : ControllerBase
     {
 
-        private HttpClient _httpClient;
+        private readonly HttpClient _httpClient;
         private static readonly string[] CoffeeList = { "Arabica", "Robusta", "Latte", "Cappuccino", "Americano", "Espresso", "Doppio" }; 
         private static readonly string[] TeaList = { "Black", "Green", "Oolong", "White", "Pu-erh", "Earl", "Jasmine" }; 
         private static readonly string[] JuiceList = { "Apple", "Been", "Bluberry", "Grape", "Orange", "Carrot", "Jasmine" }; 
@@ -45,10 +45,12 @@ namespace Producer.Controllers
             thr5.Start();
             Thread.Sleep(500);
             thr6.Start();
-            while (true)
-            {
-                
-            }
+        }
+
+        [HttpPost]
+        public void Consume(DrinkModel model)
+        {
+            Console.WriteLine($"Received consumed drink: {model.Drink}");
         }
 
         private async Task SendHttpRequestAsync(int nr, string[] drinks, CancellationToken ct)
@@ -58,7 +60,7 @@ namespace Producer.Controllers
             {
                 Thread.Sleep(1000);
                 ct.ThrowIfCancellationRequested();
-                var drink = "{" + "\"drink\":" + drinks[rnd.Next(0, CoffeeList.Length)]+"}";
+                var drink = "{" + "\"drink\":\"" + drinks[rnd.Next(0, CoffeeList.Length)]+"\"}";
                 var message = new HttpRequestMessage();
                 message.Method = HttpMethod.Post;
                 message.RequestUri = new Uri(ConsumerUri);
