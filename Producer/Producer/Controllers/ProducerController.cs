@@ -12,7 +12,7 @@ namespace Producer.Controllers
     public class ProducerController : ControllerBase
     {
 
-        private HttpClient _httpClient;
+        private readonly HttpClient _httpClient;
         private static readonly string[] CoffeeList = { "Arabica", "Robusta", "Latte", "Cappuccino", "Americano", "Espresso", "Doppio" }; 
         private static readonly string[] TeaList = { "Black", "Green", "Oolong", "White", "Pu-erh", "Earl", "Jasmine" }; 
         private static readonly string[] JuiceList = { "Apple", "Been", "Bluberry", "Grape", "Orange", "Carrot", "Jasmine" }; 
@@ -45,10 +45,6 @@ namespace Producer.Controllers
             thr5.Start();
             Thread.Sleep(500);
             thr6.Start();
-            while (true)
-            {
-                
-            }
         }
 
         private async Task SendHttpRequestAsync(int nr, string[] drinks, CancellationToken ct)
