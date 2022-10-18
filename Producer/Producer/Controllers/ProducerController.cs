@@ -54,7 +54,7 @@ namespace Producer.Controllers
             {
                 Thread.Sleep(1000);
                 ct.ThrowIfCancellationRequested();
-                var drink = "{" + "\"drink\":" + drinks[rnd.Next(0, CoffeeList.Length)]+"}";
+                var drink = "{" + "\"drink\":\"" + drinks[rnd.Next(0, CoffeeList.Length)]+"\"}";
                 var message = new HttpRequestMessage();
                 message.Method = HttpMethod.Post;
                 message.RequestUri = new Uri(ConsumerUri);
